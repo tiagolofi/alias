@@ -7,7 +7,13 @@ Este repositório reúne um conjunto organizado de aliases, funções de shell e
 ```sh
 # fuzzy finder
 alias fz="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/fuzzy.sh)"
+
+# fuzzy finder in specific directory
 alias fc="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/fuzzy-with-context.sh)"
+
+# ripgrep + fzf
 alias fr="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/ripgrep-fzf.sh)"
+
+# utils
 alias back="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/back-to-home.sh)"
 ```
