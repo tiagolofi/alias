@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
 
-# comando para verificar instalação
-CHECK_INSTALL="dpkg -s fzf &> /dev/null && echo true || echo false"
+CHECK_INSTALL_FZF="dpkg -s fzf &> /dev/null && echo true || echo false"
 
-# executa o comando e guarda o resultado
-INSTALLED=$($CHECK_INSTALL)
+INSTALLED_FZF=$($CHECK_INSTALL_FZF)
 
-if [ "$INSTALLED" = "false" ]; then
+if [ "$INSTALLED_FZF" = "false" ]; then
     sudo apt install -y fzf
 fi
 
-fzf --preview="cat {}" --layout=reverse --border
+CHECK_INSTALL_XCLIP="dpkg -s xclip &> /dev/null && echo true || echo false"
+
+INSTALLED_XCLIP=$($CHECK_INSTALL_XCLIP)
+
+if [ "$INSTALLED_XCLIP" = "false" ]; then
+    sudo apt install -y xclip
+fi
+
+file = $(fzf --preview="cat {}" --layout=reverse --border)
+
+printf "%s" "$file" | xclip -selection clipboard
+
+echo "File path copied to clipboard: $file"
