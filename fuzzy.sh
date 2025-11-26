@@ -16,4 +16,4 @@ file=$(fzf --preview="cat {}" --layout=reverse --border)
 
 printf "%s" "$file" | xclip -selection clipboard
 
-echo "File path copied to clipboard: $file"
+echo "File path copied to clipboard: $file. Use Ctrl+Shift+V to paste."
