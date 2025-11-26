@@ -4,13 +4,15 @@ check_pkg() {
     dpkg -s "$1" &> /dev/null && echo true || echo false
 }
 
-if [ "$(check_pkg fzf)" = "false" ]; then
-    sudo apt install -y fzf
-fi
+install_missing_pkgs() {
+    for pkg in "$@"; do
+        if [ "$(check_pkg "$pkg")" = "false" ]; then
+            sudo apt install -y "$pkg"
+        fi
+    done
+}
 
-if [ "$(check_pkg xclip)" = "false" ]; then
-    sudo apt install -y xclip
-fi
+install_missing_pkgs fzf xclip
 
 file=$(fzf --preview="cat {}" --layout=reverse --border)
 
