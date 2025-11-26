@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-CHECK_INSTALL_FZF="dpkg -s fzf &> /dev/null && echo true || echo false"
+check_pkg() {
+    dpkg -s "$1" &> /dev/null && echo true || echo false
+}
 
-INSTALLED_FZF=$($CHECK_INSTALL_FZF)
-
-if [ "$INSTALLED_FZF" = "false" ]; then
+if [ "$(check_pkg fzf)" = "false" ]; then
     sudo apt install -y fzf
 fi
 
-CHECK_INSTALL_XCLIP="dpkg -s xclip &> /dev/null && echo true || echo false"
-
-INSTALLED_XCLIP=$($CHECK_INSTALL_XCLIP)
-
-if [ "$INSTALLED_XCLIP" = "false" ]; then
+if [ "$(check_pkg xclip)" = "false" ]; then
     sudo apt install -y xclip
 fi
 
