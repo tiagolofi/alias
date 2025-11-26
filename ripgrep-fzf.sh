@@ -19,7 +19,7 @@ file=$(fzf --bind "change:reload:rg --line-number --color=always {q} || true" \
     --phony \
     --layout=reverse \
     --border \
-    --preview 'bat --color=always --highlight-line {2} {1}' \
+    --preview 'batcat --color=always --highlight-line {2} {1}' \
     --delimiter : \
     --header 'Digite para buscar com ripgrep' | cut -d: -f1 | xargs dirname)
 
