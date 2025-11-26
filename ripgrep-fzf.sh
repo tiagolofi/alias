@@ -12,7 +12,7 @@ install_missing_pkgs() {
     done
 }
 
-install_missing_pkgs fzf ripgrep xclip
+install_missing_pkgs fzf ripgrep xclip bat
 
 file=$(fzf --bind "change:reload:rg --line-number --color=always {q} || true" \
     --ansi \
