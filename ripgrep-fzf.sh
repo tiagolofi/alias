@@ -17,9 +17,11 @@ install_missing_pkgs fzf ripgrep xclip bat
 file=$(fzf --bind "change:reload:rg --line-number --color=always {q} || true" \
     --ansi \
     --phony \
+    --layout=reverse \
+    --border \
     --preview 'bat --color=always --highlight-line {2} {1}' \
     --delimiter : \
-    --header 'Digite para buscar com ripgrep')
+    --header 'Digite para buscar com ripgrep' | cut -d: -f1 | xargs dirname)
 
 printf "%s" "$file" | xclip -selection clipboard
 
