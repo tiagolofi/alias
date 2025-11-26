@@ -25,4 +25,4 @@ file=$(fzf --bind "change:reload:rg --line-number --color=always {q} || true" \
 
 printf "%s" "$file" | xclip -selection clipboard
 
-echo "File path copied to clipboard: $file. Use Ctrl+Shift+V to paste."
+echo "Directory path copied to clipboard: $file. Use Ctrl+Shift+V to paste."
