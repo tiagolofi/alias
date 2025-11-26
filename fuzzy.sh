@@ -16,7 +16,7 @@ if [ "$INSTALLED_XCLIP" = "false" ]; then
     sudo apt install -y xclip
 fi
 
-file = $(fzf --preview="cat {}" --layout=reverse --border)
+file=$(fzf --preview="cat {}" --layout=reverse --border)
 
 printf "%s" "$file" | xclip -selection clipboard
 
