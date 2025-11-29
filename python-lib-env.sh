@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-organize_folder() {
+prepare_dir() {
     read -p "Diretório raiz: " dir
     cd "$dir" || exit 1
     whereiam=$(pwd)
@@ -13,7 +13,7 @@ clone_repo() {
 
     repo_name=$(basename "$repo" .git)
 
-    cd "$repo_name"
+    echo "$repo_name"
 }
 
 config_python() {
@@ -36,19 +36,20 @@ python -m build"
 }
 
 setup_script() {
-    setup_script='''from setuptools import setup, find_packages
+    setup_script=$(cat <<EOF
+from setuptools import setup, find_packages
 
 setup(
-    name="simple-mongo",
+    name="$1",
     version="0.0.1",
-    description="Wrapper do PyMongo para aplicações básicas",
+    description="",
     author="tiagolofi",
     author_email="tiagolofi@example.com",
-    url="https://github.com/tiagolofi/simple-mongo",
+    url="https://github.com/tiagolofi/$1",
     packages=find_packages(),
     python_requires=">=3.9",
     install_requires=[
-        "pymongo", "python-dotenv"
+        "python-dotenv"
     ],
     extras_require={
     },
@@ -61,19 +62,22 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-)'''
+)
+EOF
+)
 
     echo "$setup_script" > setup.py
 }
 
 echo "### ALIAS DE CONFIGURAÇÃO DE PROJETOS PYTHON - LIBS ###"
 echo "[INFO] Configurando diretórios..."
-organize_folder
+prepare_dir
 echo "[INFO] Preparando repositório github..."
-clone_repo
+repo=$(clone_repo)
+cd "$repo"
 echo "[INFO] Preparando ambiente virtual do Python..."
 config_python
 echo "[INFO] Preparando scripts auxiliares..."
 build_script
-setup_script
+setup_script "$repo"
 echo "[INFO] Ambiente construído com sucesso!"
