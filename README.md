@@ -16,4 +16,7 @@ alias fr="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/
 
 # utils
 alias back="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/back-to-home.sh)"
+
+# configurar ambiente python para libs
+alias pye="bash <curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/python-lib-env.sh)"
 ```
