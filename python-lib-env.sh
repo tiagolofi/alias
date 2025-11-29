@@ -35,8 +35,48 @@ python -m build"
     chmod +x build.sh
 }
 
+project_script() {
+    setuptools_info=$(pip show setuptools)
+
+    version=$(echo "$setuptools_info" | grep -oP '^Version:\s*\K.*')
+
+    project=$(cat <<EOF
+[build-system]
+requires = ["setuptools >= $version"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "$1"
+version = "0.0.1"
+authors = [
+  { name="Tiago Matos", email="tiagolofi@example.com" },
+]
+description = ""
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "python-dotenv"
+]
+license = "Apache-2.0"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/tiagolofi/$1"
+Issues = "https://github.com/tiagolofi/$1/issues"
+    
+EOF
+)
+
+    echo "$project" > pyproject.toml
+
+}
+
 setup_script() {
-    setup_script=$(cat <<EOF
+    setup=$(cat <<EOF
 from setuptools import setup, find_packages
 
 setup(
@@ -66,7 +106,7 @@ setup(
 EOF
 )
 
-    echo "$setup_script" > setup.py
+    echo "$setup" > setup.py
 }
 
 echo "### ALIAS DE CONFIGURAÇÃO DE PROJETOS PYTHON - LIBS ###"
@@ -78,6 +118,7 @@ cd "$repo"
 echo "[INFO] Preparando ambiente virtual do Python..."
 config_python
 echo "[INFO] Preparando scripts auxiliares..."
+project_script "$repo"
 build_script
 setup_script "$repo"
 echo "[INFO] Ambiente construído com sucesso!"
