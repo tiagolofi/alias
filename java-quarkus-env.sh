@@ -29,14 +29,16 @@ config_dirs() {
 create_pom_properties() {
     declare -A CONFIG
 
+    CONFIGS=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/.conf)
+
     while IFS='=' read -r key val; do
         [[ -z "$key" || "$key" =~ ^# ]] && continue
         CONFIG["$key"]="$val"
     done < .conf
 
-    POM_TEMPLATE=$(<./models/pom-default-xml)
-    PROPS_TEMPLATE=$(<./models/application-properties)
-    INDEX_TEMPLATE=$(<./models/index)
+    POM_TEMPLATE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/pom-default-xml)
+    PROPS_TEMPLATE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/application-properties)
+    INDEX_TEMPLATE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/index)
 
     CONFIG["REPO_NAME"]=$1
 
@@ -64,9 +66,9 @@ gerar_par_chaves() {
 }
 
 add_files() {
-    GIT_IGNORE=$(<./models/gitignore)
+    GIT_IGNORE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/gitignore)
     echo "$GIT_IGNORE" > .gitignore
-    STYLE_CSS=$(<./models/styles)
+    STYLE_CSS=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/styles)
     echo "$STYLE_CSS" > src/main/resources/META-INF/branding/style.css
     touch .env
     touch CHANGELOG.md
