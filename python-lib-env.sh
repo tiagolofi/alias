@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# configura diretório padrão - opcional
 prepare_dir() {
     read -p "Diretório raiz: " dir
     cd "$dir" || exit 1
@@ -7,6 +8,7 @@ prepare_dir() {
     echo "Local atual: $whereiam"
 }
 
+# clonar repositório do github
 clone_repo() {
     read -p "Link para o repositório do github: " repo
     git clone "$repo"
@@ -16,6 +18,7 @@ clone_repo() {
     echo "$repo_name"
 }
 
+# configurar ambiente virtual do python
 config_python() {
     python3 -m venv env
     source env/bin/activate
@@ -25,6 +28,7 @@ config_python() {
     pip freeze > "requirements.txt"
 }
 
+# script de build da lib python
 build_script() {
     build_script="python -m pip install --upgrade pip
 python -m pip install --upgrade build
@@ -35,6 +39,7 @@ python -m build"
     chmod +x build.sh
 }
 
+# script do project.toml 
 project_script() {
     setuptools_info=$(pip show setuptools)
 
@@ -75,6 +80,7 @@ EOF
 
 }
 
+# script do setup.py
 setup_script() {
     setup=$(cat <<EOF
 from setuptools import setup, find_packages
