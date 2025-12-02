@@ -34,7 +34,7 @@ create_pom_properties() {
     while IFS='=' read -r key val; do
         [[ -z "$key" || "$key" =~ ^# ]] && continue
         CONFIG["$key"]="$val"
-    done < .conf
+    done <<< "$CONFIGS"
 
     POM_TEMPLATE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/pom-default-xml)
     PROPS_TEMPLATE=$(curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-files/application-properties)
@@ -84,9 +84,13 @@ prepare_dir
 echo "[INFO] Preparando repositório github..."
 repo=$(clone_repo)
 cd "$repo" 
+echo "[INFO] Configurando diretórios..."
 config_dirs
+echo "[INFO] Configurando Maven..."
 config_maven
+echo "[INFO] Gerando arquivos necessários..."
 create_pom_properties "$repo"
 add_files
 heroku_script
+echo "[INFO] Gerando par de chaves para uso em tokens JWT"
 gerar_par_chaves
