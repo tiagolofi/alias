@@ -19,4 +19,10 @@ alias back="bash <(curl -s https://raw.githubusercontent.com/tiagolofi/alias/ref
 
 # configurar ambiente python para libs
 alias pye="bash <curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/python-lib-env.sh)"
+
+# configurar ambiente java quarkus
+alias jvq="bash <curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/java-quarkus-env.sh)"
+
+# iniciar quarkus
+alias start="bash <curl -s https://raw.githubusercontent.com/tiagolofi/alias/refs/heads/main/start-java-quarkus.sh)"
 ```
