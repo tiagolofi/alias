@@ -24,7 +24,7 @@ config_python() {
     source env/bin/activate
     touch .env
     mkdir tests
-    pip install setuptools python-dotenv
+    pip install setuptools python-dotenv pytest
     pip freeze > "requirements.txt"
 }
 
@@ -95,7 +95,7 @@ setup(
     packages=find_packages(),
     python_requires=">=3.9",
     install_requires=[
-        "python-dotenv"
+        "python-dotenv", "pytest"
     ],
     extras_require={
     },
