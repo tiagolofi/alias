@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-source .conf
-
 # configura diretório padrão - opcional
 prepare_dir() {
     read -p "Diretório raiz: " dir
