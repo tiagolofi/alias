@@ -13,3 +13,5 @@ kill_port() {
 
     echo "Encerrando a porta $porta"
 }
+
+kill_port
