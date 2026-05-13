@@ -2,16 +2,11 @@
 
 # Matar porta ?
 kill_port() {
-    read -p "Informe a porta: " porta
+    local porta=$1
 
-    if [[ -z "$porta" ]]; then
-        echo "Nenhuma porta informada."
-        return 1
-    fi
-
-    fuser -k "${porta}/tcp"
+    kill -9 $(lsof -t -i :$porta)
 
     echo "Encerrando a porta $porta"
 }
 
-kill_port
+kill_port $1
